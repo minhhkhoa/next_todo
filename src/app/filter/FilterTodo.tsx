@@ -1,8 +1,12 @@
-"use client"
+"use client";
 
 import { Col, Row, Input, Typography, Radio, GetProps } from "antd";
 import { useDispatch } from "react-redux";
-import { searchFilter, statusFilter, StatusType } from "../store/features/filterSlice";
+import {
+  searchFilter,
+  statusFilter,
+  StatusType,
+} from "../store/features/filterSlice";
 import type { RadioChangeEvent } from "antd";
 import { useState } from "react";
 
@@ -10,14 +14,13 @@ const { Search } = Input;
 type SearchProps = GetProps<typeof Input.Search>;
 
 export default function FilterTodo() {
-
   const [status, setStatus] = useState<StatusType>("All");
 
   const dispath = useDispatch();
 
-  const onSearch: SearchProps["onSearch"] = (value) =>{
-      dispath(searchFilter(value));
-  }
+  const onSearch: SearchProps["onSearch"] = (value) => {
+    dispath(searchFilter(value));
+  };
 
   const handleChangeRadio = (e: RadioChangeEvent) => {
     setStatus(e.target.value);
@@ -41,11 +44,15 @@ export default function FilterTodo() {
           Filter By Status
         </Typography.Paragraph>
         <Radio.Group value={status} onChange={handleChangeRadio}>
-          <Radio value="All">All</Radio>
-          <Radio value="init">init</Radio>
-          <Radio value="doing">doing</Radio>
-          <Radio value="success">success</Radio>
-          <Radio value="failure">failure</Radio>
+          {["All", "init", "doing", "success", "failure"].map(
+            (item: string, index: number) => {
+              return (
+                <Radio key={index} value={item}>
+                  {item}
+                </Radio>
+              );
+            }
+          )}
         </Radio.Group>
       </Col>
       <Col sm={24}></Col>

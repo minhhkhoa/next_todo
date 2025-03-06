@@ -15,7 +15,7 @@ interface TodoProps {
 }
 
 // Sử dụng Record utility type để đảm bảo type safety định nghĩa obj type với record
-const priorityColorMapping: Record<StatusType, string> = {
+export const priorityColorMapping: Record<StatusType, string> = {
   init: "gray",
   doing: "yellow",
   success: "blue",

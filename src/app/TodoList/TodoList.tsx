@@ -7,10 +7,34 @@ import { addTodo, StatusType, TodoType } from "../store/features/todoSlice";
 import { useState } from "react";
 import { todosRemainingSelector } from "../store/selector";
 
+interface OptionColor {
+  status: StatusType;
+  color: string;
+}
+
+const statusColor: OptionColor[] = [
+  {
+    status: "init",
+    color: "gray",
+  },
+  {
+    status: "doing",
+    color: "yellow",
+  },
+  {
+    status: "success",
+    color: "blue",
+  },
+  {
+    status: "failure",
+    color: "red",
+  },
+];
+
 export default function TodoList() {
   const todos = useSelector(todosRemainingSelector);
 
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   const [todo, setTodo] = useState<TodoType>({
     id: crypto.randomUUID(),
@@ -40,7 +64,7 @@ export default function TodoList() {
   };
 
   const handleSubmit = () => {
-    dispath(addTodo(todo));
+    dispatch(addTodo(todo));
     setTodo({ id: "", text: "", status: "init", completed: false });
   };
 
@@ -71,18 +95,15 @@ export default function TodoList() {
               }}
             />
             <Select defaultValue="init" onChange={handleChangeSelect}>
-              <Select.Option value="init" label="init">
-                <Tag color="gray">init</Tag>
-              </Select.Option>
-              <Select.Option value="doing" label="doing">
-                <Tag color="yellow">doing</Tag>
-              </Select.Option>
-              <Select.Option value="success" label="success">
-                <Tag color="blue">success</Tag>
-              </Select.Option>
-              <Select.Option value="failure" label="failure">
-                <Tag color="red">failure</Tag>
-              </Select.Option>
+              {statusColor.map((item: OptionColor) => (
+                <Select.Option
+                  key={item.color}
+                  value={item.status}
+                  label={item.status}
+                >
+                  <Tag color={item.color}>{item.status}</Tag>
+                </Select.Option>
+              ))}
             </Select>
             <Button
               type="primary"
