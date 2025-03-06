@@ -73,7 +73,7 @@ const todoSlice = createSlice({
   reducers: {
     //- ham them todo
     addTodo: (state, action: PayloadAction<TodoType>) => {
-      state.items.push(action.payload);
+      state.items.unshift(action.payload);
     },
 
     //- ham xoa todo

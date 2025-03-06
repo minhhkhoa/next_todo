@@ -38,6 +38,7 @@ export default function Todo({ item }: TodoProps) {
     <Row
       className="py-1.5"
       justify="space-between"
+
       style={{
         marginBottom: 3,
         ...(item.completed ? { opacity: 0.5, textDecoration: "line-through" } : {}),

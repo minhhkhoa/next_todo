@@ -49,6 +49,7 @@ export default function TodoList() {
       return {
         ...pre,
         text: input,
+        id: crypto.randomUUID(),
       };
     });
   };
@@ -58,7 +59,6 @@ export default function TodoList() {
       return {
         ...prev,
         status: e as StatusType, //-ép đúng kiểu
-        id: crypto.randomUUID(),
       };
     });
   };
@@ -74,7 +74,7 @@ export default function TodoList() {
         {todos.length ? (
           <Col
             span={24}
-            style={{ height: "calc(100% - 40px)", overflowY: "auto" }}
+            style={{ height: "200px", overflowY: "auto" }}
           >
             {todos.map((item: TodoType) => (
               <Todo key={item.id} item={item} />
